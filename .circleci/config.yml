@@ -5,16 +5,11 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:16.15
+      - image: circleci/python:3.8
     working_directory: ~/pulumiquickstart/
     steps:
       - checkout
       - pulumi/login
-      - run:
-          command: |
-            python3 -m venv /home/circleci/pulumiquickstart/venv
-            /home/circleci/pulumiquickstart/venv/bin/python -m pip install --upgrade pip setuptools wheel
-            /home/circleci/pulumiquickstart/venv/bin/python -m pip install -r requirements.txt
       - pulumi/update:
           stack: pulumiquickstart
           working_directory: ~/pulumiquickstart/
