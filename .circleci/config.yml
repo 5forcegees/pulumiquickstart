@@ -10,7 +10,6 @@ jobs:
     steps:
       - checkout
       - pulumi/login
-      - run: pulumi config set aws:region ap-southeast-2
       - pulumi/update:
           stack: pulumiquickstart
           working_directory: ~/pulumiquickstart/
