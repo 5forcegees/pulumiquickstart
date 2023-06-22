@@ -12,8 +12,9 @@ jobs:
       - pulumi/login
       - run:
           command: |
-            npm install
-            npm run build 
+            python3 -m venv /home/circleci/pulumiquickstart/venv
+            /home/circleci/pulumiquickstart/venv/bin/python -m pip install --upgrade pip setuptools wheel
+            /home/circleci/pulumiquickstart/venv/bin/python -m pip install -r requirements.txt
       - pulumi/update:
           stack: pulumiquickstart
           working_directory: ~/pulumiquickstart/
