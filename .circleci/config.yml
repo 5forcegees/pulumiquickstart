@@ -1,42 +1,18 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
+
 version: 2.1
-
 orbs:
-  pulumi: pulumi/pulumi@2.1.0
-  
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/configuration-reference/#jobs
+  pulumi: pulumi/pulumi@2.1
 jobs:
-  pulumi-update:
+  build:
     docker:
-      - image: circleci/node:10      
-    parameters:
-      stack:
-        type: string
-        description: Name of the Pulumi stack to update.
-        default: quickstart-pulumiquickstart
-      working_directory:
-        type: string
-        description: >-
-          The relative working directory to use, i.e. where your Pulumi.yaml is
-          located.
-        default: .
-      skip-preview:
-        type: boolean
-        description: Do not perform a preview before performing the update.
-        default: false
+      - image: circleci/node:10
+    working_directory: ~/pulumiquickstart
     steps:
-      - run:
-          name: pulumi update --stack << parameters.stack >>
-          command: >-
-            pulumi update --yes --stack << parameters.stack >> --cwd <<
-            parameters.working_directory >> <<# parameters.skip-preview
-            >>--skip-preview<</ parameters.skip-preview >>
+      - checkout
+      - pulumi/login
+      - pulumi/update:
+          stack: pulumiquickstart
+          working_directory: ~/pulumiquickstart
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
-workflows:
-  pulumi-update-workflow:
-    jobs:
-      - pulumi-update
+
+
