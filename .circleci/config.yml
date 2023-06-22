@@ -8,15 +8,14 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-
   pulumi-update:
     docker:
-      - image: cimg/base:stable
-      
+      - image: circleci/node:10      
     parameters:
       stack:
         type: string
         description: Name of the Pulumi stack to update.
+        default: quickstart-pulumiquickstart
       working_directory:
         type: string
         description: >-
@@ -40,4 +39,4 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - pulumi-update
