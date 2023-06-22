@@ -5,11 +5,15 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:16.15
     working_directory: ~/pulumiquickstart/
     steps:
       - checkout
       - pulumi/login
+      - run:
+          command: |
+            npm install
+            npm run build 
       - pulumi/update:
           stack: pulumiquickstart
           working_directory: ~/pulumiquickstart/
